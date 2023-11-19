@@ -1,0 +1,78 @@
+1. WHERE 조건절에 대해 알아보자
+(WHERE 조건절을 통한 데이터 필터링에 대해 알아보자)
+    01. 숫자 및 문자/날짜형 데이터 필터링
+        -숫자형 데이터 조건 주기
+        -WHERE를 적고 조건을 숫자로 기재
+            WHERE 비교할 열 이름=숫자;
+
+        -문자/날짜형 데이터 조건 주기
+        -작은따옴표'' 안에 문자로 기재
+            WHERE 비교할 열 이름='문자';
+
+        -데이터에 특정한 조건을 줄 때 WHERE 조건절을 사용
+
+
+    +알아두면 유용한 지식
+        - ORDER BY 절은 문장의 끝에 사용한다
+            SELECT 열 이름
+            FROM 테이블명
+            WHERE 조건정
+            ORDER BY 열 이름;
+
+    
+    02. 비교/산술 연산자
+        -비교연산자
+            WHERE 비교할 열 이름 비교연산자 비교 할 대상;
+            연산자	     설명	                예제
+            =	        등호 (Equal)	        SELECT * FROM 테이블 WHERE 컬럼 = 값;
+            <	        작다 (Less than)	    SELECT * FROM 테이블 WHERE 컬럼 < 값;
+            >	        크다 (Greater than)	    SELECT * FROM 테이블 WHERE 컬럼 > 값;
+            <=	        작거나 같다             SELECT * FROM 테이블 WHERE 컬럼 <= 값;
+            >=	        크거나 같다             SELECT * FROM 테이블 WHERE 컬럼 >= 값;
+            <> 또는 !=	부정 (Not equal to)	    SELECT * FROM 테이블 WHERE 컬럼 <> 값;
+            BETWEEN	    주어진 범위 내에 있는지	 SELECT * FROM 테이블 WHERE 컬럼 BETWEEN 값1 AND 값2;
+            IN	        주어진 목록에 속하는지	 SELECT * FROM 테이블 WHERE 컬럼 IN (값1, 값2, 값3);
+            LIKE	    패턴 매칭	            SELECT * FROM 테이블 WHERE 문자열컬럼 LIKE '패턴%';
+            IS NULL	    NULL인지 확인	        SELECT * FROM 테이블 WHERE 컬럼 IS NULL;
+            IS NOT NULL	NULL이 아닌지 확인	    SELECT * FROM 테이블 WHERE 컬럼 IS NOT NULL;
+
+        -산술연산자 : SELECT문에서 사용되는 경우
+            SELECT 열 이름1, 열 이름2 산술연산자 열 이름3 AS 새로운 이름
+                                    ----------
+                            새로운 별칭을 주는 AS와 같이 사용되는 경우가 많음
+                            EX) SELECT 열이름1, 열이름2, 열이름1 + 열이름2 AS 합계
+        
+        -산술연산자 : WHERE 조건절에서 사용되는 경우
+        -산술연산자의 우선순위는 사칙연산의 우선순위와 동일하다
+            SELECT 열 이름 FROM 테이블명 WHERE (열 이름1 산술연산자 열 이름2) 비교연산자 비교할 대상;
+                                                       ----------
+                                                  EX)WHERE (주문량 + 재고량) >= 100;
+
+        
+    +알아두면 유용한 지식
+        - 비즈니스 세계에서 유용한 '타켓 사이즈'라는 개념이 있다
+        - NULL값은 오름차순 혹은 내림차순으로 정렬 시 가장 큰 값으로 분류된다
+
+    03. NULL값의 처리
+        -NULL값과 0은 다른 의미이다
+        -NULL값이 포함된 사칙연산을 할 때 결과값은 NULL값이다. 이를 해결하기 위해 결측지 처리를 해야한다
+        -NULL 값을 다른 값으로 치환 할 때는 COALESCE 함수가 많이 사용
+        -COALESCE는 합치다 의미로 문법에서 정의된 열 중 NULL이 아닌 첫번째 값을 화면에 출력
+        -NULL값을 제외한 가장 왼쪽에 남는 값이라고 생각하면 쉬움
+        -COALESCE 함수의 문법
+            COALESCE(EXPRESSION1, EXPRESSION2,.., EXPRESSION N)
+            EX) COALESCE('A' , 'B') -> A
+                COALESCE(NULL , 'B') -> B 
+
+    +알아두면 유용한 지식
+        - 통계학에서는 NULL값을 결측지 라고도 부른다
+        - DBMS마다 지원 여부의 차이가 있지만 NULL값을 처리할 수 있는 함수
+            -ZEROIFNULL(열 이름) : 해달 열에 NULL값이 포함되면 숫자 0으로 변경
+            -NVL2(열 이름, 표현식1, 표현식2) : 해당 열이 NULL이면 표현식2를 NULL이 아니면 표현식1
+
+
+        
+        
+
+
+
